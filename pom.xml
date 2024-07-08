@@ -441,6 +441,7 @@
         </pluginManagement>
       </build>
     </profile>
+    <profile>postgres</profile>
   </profiles>
 
 </project>
