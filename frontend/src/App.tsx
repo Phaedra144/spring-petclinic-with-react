@@ -1,17 +1,17 @@
-import pets from './assets/images/pets.png';
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Veterinarians } from "./pages/Veterinarians";
 
 function App() {
-
   return (
     <>
-      <h2 >Welcome</h2>
-      <div className="row">
-          <div className="col-md-12">
-            <img className="img-responsive" src={pets}/>
-          </div>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/vets" element={<Veterinarians />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
