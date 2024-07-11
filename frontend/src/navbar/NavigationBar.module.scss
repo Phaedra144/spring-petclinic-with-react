@@ -13,7 +13,7 @@
   padding-right: calc(var(--bs-gutter-x) * .5);
   padding-left: calc(var(--bs-gutter-x) * .5);
   margin-right: auto;
-  margin-left: auto; 
+  margin-left: 0px; 
   display: flex;
   align-items: center;
 }
@@ -31,7 +31,7 @@
   
   .navbar a.navbar-brand {
     background: url("/src/assets/images/spring-logo-dataflow.png") -1px -1px no-repeat;
-    margin: 12px 0 6px;
+    margin: 12px 0 12px;
     width: 229px;
     height: 46px;
     display: inline-block;
@@ -58,6 +58,7 @@
     font-family: "montserratregular", sans-serif;
     text-shadow: none;
     font-size: 14px;
+    text-decoration: none;
   
   /* line-height: 14px; */
     padding: 28px 20px;
@@ -72,11 +73,6 @@
     text-transform: uppercase;
     color: $navbar-default-link-color;
   }
-  
-  .navbar .navbar-text {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
   .navbar li:hover > a {
     color: $navbar-default-link-hover-color;
     background-color: $navbar-default-link-active-bg;
@@ -89,8 +85,9 @@
   .navbar-nav {
     display: flex;
     flex-direction: row;
-    padding-left: 0;
-    list-style: none; }
+    list-style: none; 
+    margin-top: 1rem;
+  }
     .navbar-nav .dropdown-menu {
       position: static; }
   

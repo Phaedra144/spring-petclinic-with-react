@@ -1,4 +1,3 @@
-import { Container } from 'react-bootstrap';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import styles from '/src/navbar/NavigationBar.module.scss';
@@ -6,7 +5,7 @@ import styles from '/src/navbar/NavigationBar.module.scss';
 export const NavigationBar = () => {
   return (
     <nav className={classNames(styles.navbar)} role="navigation">
-      <Container className={styles['container-fluid']}>
+      <div className={styles['container-fluid']}>
         <NavLink to={'/'} className={styles['navbar-brand']}>
           <span></span>
         </NavLink>
@@ -31,7 +30,7 @@ export const NavigationBar = () => {
             <NavLink to={'/oups'}>Error</NavLink>
           </li>
         </ul>
-      </Container>
+      </div>
     </nav>
   );
 };

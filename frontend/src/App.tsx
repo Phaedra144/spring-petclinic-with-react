@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <NavigationBar />
-      <div style={{ margin: '40px'}}>
+      <div className="m-5">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
