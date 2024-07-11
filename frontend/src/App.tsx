@@ -1,15 +1,19 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Veterinarians } from "./pages/Veterinarians";
+import { Route, Routes } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Veterinarians } from './pages/Veterinarians';
+import { NavigationBar } from './navbar/NavigationBar';
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/vets" element={<Veterinarians />} />
-      </Routes>
+      <NavigationBar />
+      <div style={{ margin: '40px'}}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/vets" element={<Veterinarians />} />
+        </Routes>
+      </div>
     </>
   );
 }
