@@ -9,8 +9,8 @@ const EXAMPLE_VETS_DATA = [
 export const Veterinarians = () => {
   return (
     <>
-      <h2 className="m-4">Veterinarians</h2>
-      <table id="vets" className="table table-striped m-4">
+      <h2 className="mb-2">Veterinarians</h2>
+      <table id="vets" className="table table-striped mb-4">
         <thead className={styles.tableHead}>
           <tr>
             <th>Name</th>
