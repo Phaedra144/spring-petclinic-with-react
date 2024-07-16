@@ -1,3 +1,5 @@
+@import '/src/variables.scss';
+
 @font-face {
     font-family: 'varela_roundregular';
   
@@ -64,4 +66,39 @@
     --bs-gutter-y: 0;
     width: 100%;
 }
+
+.xd-container {
+  margin-top: 40px;
+  margin-bottom: 100px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pagination {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  justify-content: space-evenly;
+  list-style-type: none;
+  position: relative;
+  width: 1000px;
+}
   
+.pagination > .active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.page-item {
+  color: $pagination-active-color;
+  text-decoration: underline;
+  list-style: none;
+  padding: 2px 12px;
+  height: 31.5px;
+  width: 31.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
