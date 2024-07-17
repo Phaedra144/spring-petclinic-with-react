@@ -1,5 +1,4 @@
 import { usePaging } from '../hooks/usePaging';
-import styles from '/src/pages/Veterinarians.module.scss';
 
 const EXAMPLE_VETS_DATA = [
   { firstName: 'Vanessa', lastName: 'Hudgens', specialties: [{ name: 'separation syndrome' }] },
@@ -15,7 +14,7 @@ export const Veterinarians = () => {
     <>
       <h2 className="mb-2">Veterinarians</h2>
       <table id="vets" className="table table-striped mb-4">
-        <thead className={styles.tableHead}>
+        <thead>
           <tr>
             <th>Name</th>
             <th>Specialties</th>
