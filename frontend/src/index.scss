@@ -82,7 +82,7 @@
   justify-content: space-evenly;
   list-style-type: none;
   position: relative;
-  width: 1000px;
+  width: 100%;
 }
   
 .pagination > .active {
@@ -123,4 +123,9 @@
     background-color: $spring-brown;
     border-color: $spring-brown;
   }
+}
+
+.thead > tr > th {
+  background-color: lighten($spring-brown, 3%);
+  color: $spring-light-grey;
 }
