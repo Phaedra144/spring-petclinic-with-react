@@ -3,8 +3,7 @@ import { Home } from './pages/Home';
 import { Error } from './pages/Error';
 import { Veterinarians } from './pages/Veterinarians';
 import { NavigationBar } from './navbar/NavigationBar';
-import { OwnerList } from './pages/OwnerList';
-import { FindOwner } from './pages/FindOwner';
+import { OwnerRoutes } from './routes/OwnerRoutes';
 
 function App() {
   return (
@@ -17,8 +16,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/vets" element={<Veterinarians />} />
           <Route path="owners">
-            <Route index={true} element={<OwnerList />}/>
-            <Route index={false} path="find" element={<FindOwner />} />
+            <OwnerRoutes />
           </Route>
         </Routes>
       </div>
