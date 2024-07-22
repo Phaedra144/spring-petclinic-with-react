@@ -5,6 +5,7 @@ import { Veterinarians } from './pages/Veterinarians';
 import { NavigationBar } from './navbar/NavigationBar';
 import { OwnerList } from './pages/OwnerList';
 import { FindOwner } from './pages/FindOwner';
+import { OwnerForm } from './pages/OwnerForm';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <>
               <Route index={true} element={<OwnerList />} />
               <Route index={false} path="find" element={<FindOwner />} />
+              <Route index={false} path="new" element={<OwnerForm />} />
             </>
           </Route>
         </Routes>
