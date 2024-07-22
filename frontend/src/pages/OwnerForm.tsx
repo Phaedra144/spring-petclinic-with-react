@@ -35,12 +35,16 @@ export const OwnerForm = () => {
     removeError(lengthErrorMessages.tooShort);
     removeError(lengthErrorMessages.notStartWithPlus);
 
-    if (!value.startsWith('+')) {
-      errors.push(lengthErrorMessages.notStartWithPlus);
-    } else if (value.length > TELEPHONE_NUMBER_LENGTH) {
-      errors.push(lengthErrorMessages.tooLong);
-    } else if (value.length < TELEPHONE_NUMBER_LENGTH) {
-      errors.push(lengthErrorMessages.tooShort);
+    if (value) {
+      if (!value.startsWith('+')) {
+        errors.push(lengthErrorMessages.notStartWithPlus);
+      }
+      if (value.length > TELEPHONE_NUMBER_LENGTH) {
+        errors.push(lengthErrorMessages.tooLong);
+      }
+      if (value.length < TELEPHONE_NUMBER_LENGTH) {
+        errors.push(lengthErrorMessages.tooShort);
+      }
     }
 
     setTelephoneErrors(errors);
