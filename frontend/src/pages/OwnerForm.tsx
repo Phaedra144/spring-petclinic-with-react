@@ -1,18 +1,12 @@
 import { ChangeEvent, useState } from 'react';
+import { InputField } from 'src/components/InputField';
 
 const defaultUserInfo = {
   firstName: '',
   lastName: '',
-  phoneNumber: '',
-  email: '',
-  password: '',
-  userType: '',
-  partnerCompany: '',
-  channel: 'standard',
-  companyName: '',
-  usherer: null,
-  hasGlobalVisibility: false,
-  excludeMarketingCampaign: true,
+  city: '',
+  address: '',
+  telephone: '',
 };
 
 export const OwnerForm = () => {
@@ -23,66 +17,68 @@ export const OwnerForm = () => {
       return { ...prevData, [name]: value };
     });
   };
+  const newOwner = true;
   return (
     <>
       <h2>Owner</h2>
       <form className="form-horizontal" id="add-owner-form" method="post">
         <div className="form-group has-feedback">
-          <label style={{ cursor: 'pointer', marginBottom: '-5px' }}>First Name</label>
-          <input
+          <InputField
             type="text"
             name="firstName"
-            placeholder="First name"
-            value={''}
+            label="First Name"
+            placeHolder="First name"
+            value={userInfo.firstName}
             onChange={handleChange}
             required
+            errors={[]}
           />
-          <label style={{ cursor: 'pointer', marginBottom: '-5px' }}>Last Name</label>
-          <input
+
+          <InputField
             type="text"
             name="lastName"
-            placeholder="Last name"
-            value={''}
+            label="Last Name"
+            placeHolder="Last name"
+            value={userInfo.lastName}
             onChange={handleChange}
             required
+            errors={[]}
           />
-          <label style={{ cursor: 'pointer', marginBottom: '-5px' }}>Address</label>
-          <input
+          <InputField
             type="text"
             name="address"
-            placeholder="Address"
-            value={''}
+            label="Address"
+            placeHolder="Address"
+            value={userInfo.address}
             onChange={handleChange}
             required
+            errors={[]}
           />
-          <label style={{ cursor: 'pointer', marginBottom: '-5px' }}>City</label>
-          <input
+          <InputField
             type="text"
             name="city"
-            placeholder="City"
-            value={''}
+            label="City"
+            placeHolder="City"
+            value={userInfo.city}
             onChange={handleChange}
             required
+            errors={[]}
           />
-          <label style={{ cursor: 'pointer', marginBottom: '-5px' }}>Telephone</label>
-          <input
-            type="text"
+          <InputField
+            type="tel"
             name="telephone"
-            placeholder="Telephone"
-            value={''}
+            label="Telephone"
+            placeHolder="Telephone"
+            value={userInfo.telephone}
             onChange={handleChange}
             required
+            errors={[]}
           />
         </div>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <button
-              th:with="text=${owner['new']} ? 'Add Owner' : 'Update Owner'"
-              className="btn btn-primary"
-              type="submit"
-              th:text="${text}"
-            >
-              Add Owner
+            <button className="btn btn-primary" type="submit">
+              {newOwner ? 'Add Owner' : 'Update Owner'}
             </button>
           </div>
         </div>
