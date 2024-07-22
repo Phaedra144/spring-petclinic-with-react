@@ -17,6 +17,7 @@ export const InputField = ({
   name,
   placeHolder = '',
   errors = [],
+  ...props
 }: InputFieldProps) => {
   const showError =
     errors.length > 0 && errors[0] !== undefined && errors[0] !== null && errors[0] !== '';
@@ -27,7 +28,7 @@ export const InputField = ({
         {label}
       </label>
       <div className="col-sm-10">
-        <input className="form-control mb-1" type={inputType} name={name} placeholder={placeHolder} />
+        <input className="form-control mb-1" type={inputType} name={name} placeholder={placeHolder} {...props} />
         {!showError && <span className="fa fa-ok form-control-feedback" aria-hidden="true"></span>}
       </div>
       {showError && errors.length > 1 && (
@@ -35,7 +36,7 @@ export const InputField = ({
           {Array.isArray(errors) &&
             errors.map((object, idx) => {
               return (
-                <div className="form-validation-error" key={idx}>
+                <div className="text-danger form-validation-error" key={idx}>
                   {object}
                 </div>
               );

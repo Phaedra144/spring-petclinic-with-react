@@ -1,6 +1,8 @@
 import { ChangeEvent, useState } from 'react';
 import { InputField } from 'src/components/InputField';
 
+const TELEPHONE_NUMBER_LENGTH = 8;
+
 const defaultUserInfo = {
   firstName: '',
   lastName: '',
@@ -11,13 +13,53 @@ const defaultUserInfo = {
 
 export const OwnerForm = () => {
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
+  const [telephoneErrors, setTelephoneErrors] = useState<string[]>([]);
+  const newOwner = true;
+
+  const validatePhoneNumberLength = (value: string) => {
+    const errors = [...telephoneErrors];
+    const lengthErrorMessages = {
+      tooLong: 'Phone number too long',
+      tooShort: 'Phone number not long enough',
+      notStartWithPlus: 'Phone number should start with "+"',
+    };
+
+    const removeError = (message: string) => {
+      const index = errors.indexOf(message);
+      if (index !== -1) {
+        errors.splice(index, 1);
+      }
+    };
+
+    removeError(lengthErrorMessages.tooLong);
+    removeError(lengthErrorMessages.tooShort);
+    removeError(lengthErrorMessages.notStartWithPlus);
+
+    if (!value.startsWith('+')) {
+      errors.push(lengthErrorMessages.notStartWithPlus);
+    } else if (value.length > TELEPHONE_NUMBER_LENGTH) {
+      errors.push(lengthErrorMessages.tooLong);
+    } else if (value.length < TELEPHONE_NUMBER_LENGTH) {
+      errors.push(lengthErrorMessages.tooShort);
+    }
+
+    setTelephoneErrors(errors);
+  };
+
+  const handleTelephoneChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
+    validatePhoneNumberLength(value);
+    setUserInfo((prevData) => {
+      return { ...prevData, [name]: value };
+    });
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserInfo((prevData) => {
       return { ...prevData, [name]: value };
     });
   };
-  const newOwner = true;
+
   return (
     <>
       <h2>Owner</h2>
@@ -70,9 +112,9 @@ export const OwnerForm = () => {
             label="Telephone"
             placeHolder="Telephone"
             value={userInfo.telephone}
-            onChange={handleChange}
+            onChange={handleTelephoneChange}
             required
-            errors={[]}
+            errors={telephoneErrors}
           />
         </div>
         <div className="form-group">
