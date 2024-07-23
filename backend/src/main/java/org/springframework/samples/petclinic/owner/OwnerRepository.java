@@ -53,9 +53,13 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 * found)
 	 */
 
-	@Query("SELECT DISTINCT owner FROM Owner owner left join  owner.pets WHERE owner.lastName LIKE :lastName% ")
+	@Query("SELECT DISTINCT owner FROM Owner owner left join owner.pets WHERE owner.lastName LIKE :lastName% ")
 	@Transactional(readOnly = true)
 	Page<Owner> findByLastName(@Param("lastName") String lastName, Pageable pageable);
+
+	@Query("SELECT DISTINCT owner FROM Owner owner left join owner.pets WHERE owner.lastName LIKE :lastName% ")
+	@Transactional(readOnly = true)
+	List<Owner> findByLastName(@Param("lastName") String lastName);
 
 	/**
 	 * Retrieve an {@link Owner} from the data store by id.
@@ -78,5 +82,12 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	@Query("SELECT owner FROM Owner owner")
 	@Transactional(readOnly = true)
 	Page<Owner> findAll(Pageable pageable);
+
+	/**
+	 * Returns all the owners from data store
+	 **/
+	@Query("SELECT owner FROM Owner owner")
+	@Transactional(readOnly = true)
+	List<Owner> findAll();
 
 }
