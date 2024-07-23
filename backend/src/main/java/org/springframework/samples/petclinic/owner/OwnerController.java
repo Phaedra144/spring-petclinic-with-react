@@ -17,7 +17,7 @@ package org.springframework.samples.petclinic.owner;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author Juergen Hoeller
@@ -129,37 +129,39 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/{ownerId}/edit")
-	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
-		Owner owner = this.owners.findById(ownerId);
-		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model
+	model) {
+	Owner owner = this.owners.findById(ownerId);
+	model.addAttribute(owner);
+	return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
 	@PostMapping("/owners/{ownerId}/edit")
-	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") int ownerId,
-			RedirectAttributes redirectAttributes) {
-		if (result.hasErrors()) {
-			redirectAttributes.addFlashAttribute("error", "There was an error in updating the owner.");
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-		}
+	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult
+	result, @PathVariable("ownerId") int ownerId,
+	RedirectAttributes redirectAttributes) {
+	if (result.hasErrors()) {
+	redirectAttributes.addFlashAttribute("error", "There was an error in updating the owner.");
+	return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
 
-		owner.setId(ownerId);
-		this.owners.save(owner);
-		redirectAttributes.addFlashAttribute("message", "Owner Values Updated");
-		return "redirect:/owners/{ownerId}";
+	owner.setId(ownerId);
+	this.owners.save(owner);
+	redirectAttributes.addFlashAttribute("message", "Owner Values Updated");
+	return "redirect:/owners/{ownerId}";
 	}
 
 	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
+	* Custom handler for displaying an owner.
+	* @param ownerId the ID of the owner to display
+	* @return a ModelMap with the model attributes for the view
+	*/
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		Owner owner = this.owners.findById(ownerId);
-		mav.addObject(owner);
-		return mav;
+	ModelAndView mav = new ModelAndView("owners/ownerDetails");
+	Owner owner = this.owners.findById(ownerId);
+	mav.addObject(owner);
+	return mav;
 	}
 
 }
