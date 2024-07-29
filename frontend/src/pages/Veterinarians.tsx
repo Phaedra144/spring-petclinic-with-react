@@ -1,15 +1,10 @@
+import { useGetVeterinariansQuery } from 'src/api/veterinerianReducer';
 import { usePaging } from '../hooks/usePaging';
 
-const EXAMPLE_VETS_DATA = [
-  { firstName: 'Vanessa', lastName: 'Hudgens', specialties: [{ name: 'separation syndrome' }] },
-  { firstName: 'Theodor', lastName: 'Roosevelt', specialties: [{ name: 'liver surgery' }] },
-  { firstName: 'John', lastName: 'Connor', specialties: [] },
-  { firstName: 'Stewart', lastName: 'Harold', specialties: [] },
-  { firstName: 'Santana', lastName: 'Jacobson', specialties: [] },
-];
-
 export const Veterinarians = () => {
-  const [currentItems, paginator] = usePaging({ itemsPerPage: 2, items: EXAMPLE_VETS_DATA });
+  const { data } = useGetVeterinariansQuery();
+  const [currentItems, paginator] = usePaging({ itemsPerPage: 3, items: data ?? [] });
+
   return (
     <>
       <h2 className="mb-2">Veterinarians</h2>
