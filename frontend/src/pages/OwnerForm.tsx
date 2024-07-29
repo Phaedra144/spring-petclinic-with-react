@@ -1,7 +1,7 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { useCreateOwnerMutation } from 'src/api/ownerReducers';
 import { InputField } from 'src/components/InputField';
-
-const TELEPHONE_NUMBER_LENGTH = 8;
+import { useTelephoneValidation } from 'src/hooks/useTelephoneValidation';
 
 const defaultUserInfo = {
   firstName: '',
@@ -13,42 +13,9 @@ const defaultUserInfo = {
 
 export const OwnerForm = () => {
   const [userInfo, setUserInfo] = useState(defaultUserInfo);
-  const [telephoneErrors, setTelephoneErrors] = useState<string[]>([]);
+  const { telephoneErrors, validatePhoneNumberLength } = useTelephoneValidation();
   const newOwner = true;
-
-  const validatePhoneNumberLength = (value: string) => {
-    const errors = [...telephoneErrors];
-    const lengthErrorMessages = {
-      tooLong: 'Phone number too long',
-      tooShort: 'Phone number not long enough',
-      notStartWithPlus: 'Phone number should start with "+"',
-    };
-
-    const removeError = (message: string) => {
-      const index = errors.indexOf(message);
-      if (index !== -1) {
-        errors.splice(index, 1);
-      }
-    };
-
-    removeError(lengthErrorMessages.tooLong);
-    removeError(lengthErrorMessages.tooShort);
-    removeError(lengthErrorMessages.notStartWithPlus);
-
-    if (value) {
-      if (!value.startsWith('+')) {
-        errors.push(lengthErrorMessages.notStartWithPlus);
-      }
-      if (value.length > TELEPHONE_NUMBER_LENGTH) {
-        errors.push(lengthErrorMessages.tooLong);
-      }
-      if (value.length < TELEPHONE_NUMBER_LENGTH) {
-        errors.push(lengthErrorMessages.tooShort);
-      }
-    }
-
-    setTelephoneErrors(errors);
-  };
+  const [createOwner] = useCreateOwnerMutation();
 
   const handleTelephoneChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
     validatePhoneNumberLength(value);
@@ -64,10 +31,14 @@ export const OwnerForm = () => {
     });
   };
 
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <h2>Owner</h2>
-      <form className="form-horizontal" id="add-owner-form" method="post">
+      <form className="form-horizontal" id="add-owner-form" method="post" onSubmit={handleSubmit}>
         <div className="form-group has-feedback">
           <InputField
             type="text"
