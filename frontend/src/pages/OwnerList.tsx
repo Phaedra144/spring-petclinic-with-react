@@ -1,9 +1,11 @@
 import { useGetOwnersQuery } from 'src/api/ownerReducers';
 import { Owner } from 'src/types/owner';
 import { usePaging } from '../hooks/usePaging';
+import { useParams } from 'react-router-dom';
 
 export const OwnerList = () => {
-  const { data } = useGetOwnersQuery('');
+  const { lastName } = useParams<{ lastName: string }>();
+  const { data } = useGetOwnersQuery(lastName ?? '');
   const owners = data ?? [];
   const [currentItems, paginator] = usePaging({ itemsPerPage: 5, items: owners });
   return (
