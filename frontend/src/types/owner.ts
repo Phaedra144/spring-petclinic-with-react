@@ -1,12 +1,12 @@
-import { Pet } from "src/types/pet";
+import { Pet } from 'src/types/pet';
 
 export interface Person {
+  id: number;
   firstName: string;
   lastName: string;
 }
 
 export interface Owner extends Person {
-  id: number;
   address: string;
   city: string;
   pets: Pet[];

@@ -1,15 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { EmptyResponse } from 'src/types/common';
+import { EmptyResponse, Nullable } from 'src/types/common';
 import { Owner } from 'src/types/owner';
 
 export const ownersApi = createApi({
-  baseQuery: fetchBaseQuery(),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:8081/rest',
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
+      return headers;
+    },
+  }),
   reducerPath: 'owners',
   endpoints: (builder) => {
     return {
-      getOwners: builder.query<Owner[], void>({
-        query: () => {
-          return '/rest/owners';
+      getOwners: builder.query<Owner[], Nullable<string>>({
+        query: (lastName?) => {
+          return { url: '/owners', method: 'get', params: { lastName: lastName } };
         },
       }),
       createOwner: builder.mutation<
@@ -29,7 +35,7 @@ export const ownersApi = createApi({
       >({
         query: (data) => {
           return {
-            url: `/rest/owners/new`,
+            url: `/owners/new`,
             method: 'POST',
             data: data,
           };
