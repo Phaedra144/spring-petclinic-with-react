@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useGetOwnersQuery } from 'src/api/ownerReducers';
 import { Owner } from 'src/types/owner';
 import { usePaging } from '../hooks/usePaging';
@@ -26,7 +26,11 @@ export const OwnerList = () => {
             currentItems.map((owner: Owner) => {
               return (
                 <tr key={`${owner.firstName + ' ' + owner.lastName}`}>
-                  <td>{`${owner.firstName + ' ' + owner.lastName}`}</td>
+                  <td>
+                    <Link to={`/owners/${owner.id}`}>{`${
+                      owner.firstName + ' ' + owner.lastName
+                    }`}</Link>
+                  </td>
                   <td>{owner.address}</td>
                   <td>{owner.city}</td>
                   <td>{owner.telephone}</td>
