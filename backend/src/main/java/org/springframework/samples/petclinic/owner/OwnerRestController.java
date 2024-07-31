@@ -31,7 +31,7 @@ public class OwnerRestController {
 	@PostMapping("/owners/new")
 	public ResponseEntity processCreationForm(@Valid @RequestBody Owner owner) {
 		this.owners.save(owner);
-		return ResponseEntity.ok(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 }
