@@ -1,17 +1,32 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home } from './pages/Home';
-import { Error } from './pages/Error';
-import { Veterinarians } from './pages/Veterinarians';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { NavigationBar } from './navbar/NavigationBar';
-import { OwnerList } from './pages/OwnerList';
+import { Error } from './pages/Error';
 import { FindOwner } from './pages/FindOwner';
+import { Home } from './pages/Home';
 import { OwnerForm } from './pages/OwnerForm';
+import { OwnerList } from './pages/OwnerList';
+import { Veterinarians } from './pages/Veterinarians';
 
 function App() {
   return (
     <>
       <NavigationBar />
       <div className="container xd-container">
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          className="hide-in-print"
+          theme="colored"
+          icon={false}
+        />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/oups" element={<Error />} />

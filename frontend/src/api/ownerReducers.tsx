@@ -32,7 +32,7 @@ export const ownersApi = createApi({
           return {
             url: `/owners/new`,
             method: 'POST',
-            data: data,
+            body: data,
           };
         },
       }),

@@ -37,8 +37,13 @@ export const OwnerForm = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     createOwner(userInfo)
+      .unwrap()
       .then(() => refreshPage())
-      .catch(() => toast.error('Something went wrong when creating the course'));
+      .catch(({ data }) =>
+        data.errors.forEach((item: string) => {
+          toast.error(item);
+        }),
+      );
   };
 
   return (
