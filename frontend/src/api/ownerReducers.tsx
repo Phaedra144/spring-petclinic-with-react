@@ -36,8 +36,13 @@ export const ownersApi = createApi({
           };
         },
       }),
+      getOwner: builder.query<Owner, Nullable<string>>({
+        query: (ownerId) => {
+          return `/owners/${ownerId}`;
+        },
+      }),
     };
   },
 });
 
-export const { useGetOwnersQuery, useCreateOwnerMutation } = ownersApi;
+export const { useGetOwnersQuery, useCreateOwnerMutation, useGetOwnerQuery } = ownersApi;
