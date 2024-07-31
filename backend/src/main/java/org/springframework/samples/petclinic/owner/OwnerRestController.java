@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.owner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,12 @@ public class OwnerRestController {
 
 	@GetMapping("/owners")
 	private List<Owner> findListForOwnersLastName(String lastName) {
-		return lastName != null ? owners.findByLastName(lastName) : owners.findAll();
+		List<Owner> ownersResult = new ArrayList<>();
+		if (lastName != null) {
+			ownersResult = owners.findByLastName(lastName);
+		}
+		return ownersResult.isEmpty() ? owners.findAll() : ownersResult;
+
 	}
 
 	@SuppressWarnings("rawtypes")
