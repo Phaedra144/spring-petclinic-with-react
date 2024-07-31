@@ -34,7 +34,7 @@ export const OwnerList = () => {
                   <td>
                     {owner.pets.map((pet, i) => {
                       return (
-                        <span>
+                        <span key={pet.name}>
                           {owner.pets.length > 1 && i !== owner.pets.length - 1
                             ? `${pet.name}, `
                             : pet.name}

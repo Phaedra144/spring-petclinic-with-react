@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const TELEPHONE_NUMBER_LENGTH = 8;
+const TELEPHONE_NUMBER_LENGTH = 12;
 
 export function useTelephoneValidation() {
   const [telephoneErrors, setTelephoneErrors] = useState<string[]>([]);

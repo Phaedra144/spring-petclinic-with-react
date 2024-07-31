@@ -21,16 +21,11 @@ export const ownersApi = createApi({
       createOwner: builder.mutation<
         EmptyResponse,
         {
-          usherer: number;
           firstName: string;
           lastName: string;
-          phoneNumber: string;
-          email: string;
-          userType: string;
-          partnerCompany: string;
-          channel: string;
-          companyName: string;
-          hasGlobalVisibility: boolean;
+          city: string;
+          address: string;
+          telephone: string;
         }
       >({
         query: (data) => {
