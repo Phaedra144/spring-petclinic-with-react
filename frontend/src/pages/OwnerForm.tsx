@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useCreateOwnerMutation } from 'src/api/ownerReducers';
 import { InputField } from 'src/components/InputField';
+import useRefreshPage from 'src/hooks/useRefreshPage';
 import { useTelephoneValidation } from 'src/hooks/useTelephoneValidation';
 
 const defaultUserInfo = {
@@ -16,6 +18,7 @@ export const OwnerForm = () => {
   const { telephoneErrors, validatePhoneNumberLength } = useTelephoneValidation();
   const newOwner = true;
   const [createOwner] = useCreateOwnerMutation();
+  const refreshPage = useRefreshPage();
 
   const handleTelephoneChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
     validatePhoneNumberLength(value);
@@ -33,6 +36,9 @@ export const OwnerForm = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    createOwner(userInfo)
+      .then(() => refreshPage())
+      .catch(() => toast.error('Something went wrong when creating the course'));
   };
 
   return (
