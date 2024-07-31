@@ -2,8 +2,11 @@ package org.springframework.samples.petclinic.owner;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +27,11 @@ public class OwnerRestController {
 		return lastName != null ? owners.findByLastName(lastName) : owners.findAll();
 	}
 
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/owners/new")
-	public void processCreationForm(@Valid Owner owner) {
+	public ResponseEntity processCreationForm(@Valid @RequestBody Owner owner) {
 		this.owners.save(owner);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 
 }

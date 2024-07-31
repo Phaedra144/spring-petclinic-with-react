@@ -56,7 +56,7 @@ public class Owner extends Person {
 
 	@Column(name = "telephone")
 	@NotBlank
-	@Pattern(regexp = "\\d{12}", message = "Telephone must be a 12-digit number")
+	@Pattern(regexp = "\\+\\d{11}", message = "Telephone must be a 11-digit number starting with +")
 	private String telephone;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
