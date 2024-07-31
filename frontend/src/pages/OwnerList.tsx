@@ -1,12 +1,11 @@
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useGetOwnersQuery } from 'src/api/ownerReducers';
 import { Owner } from 'src/types/owner';
 import { usePaging } from '../hooks/usePaging';
 
 export const OwnerList = () => {
-  const { search } = useLocation();
-  const params = new URLSearchParams(search);
-  const { data } = useGetOwnersQuery(params.get('lastName') ?? '');
+  const [searchParams] = useSearchParams();
+  const { data } = useGetOwnersQuery(searchParams.get('lastName') ?? '');
   const owners = data ?? [];
   const [currentItems, paginator] = usePaging({ itemsPerPage: 5, items: owners });
   return (
