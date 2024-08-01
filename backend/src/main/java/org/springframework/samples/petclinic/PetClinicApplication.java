@@ -45,7 +45,7 @@ public class PetClinicApplication {
 				registry.addMapping("/**")
 					.allowedOrigins("http://localhost:5173")
 					.allowedHeaders("*")
-					.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD")
+					.allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH")
 					.maxAge(-1) // add maxAge
 					.allowCredentials(false);
 			}

@@ -1,10 +1,10 @@
-import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGetOwnerQuery } from 'src/api/ownerReducers';
 
 export const OwnerDetails = () => {
   const params = useParams();
-  const { currentData: owner } = useGetOwnerQuery(params['id'] ?? '');
+  const id = params['id'] ?? '';
+  const { currentData: owner } = useGetOwnerQuery(id);
   return (
     <>
       <h2>Owner Information</h2>
@@ -28,8 +28,10 @@ export const OwnerDetails = () => {
         </tr>
       </table>
 
-      <Button className="btn btn-primary mr-4">Edit Owner</Button>
-      <a className="btn btn-primary">Add New Pet</a>
+      <Link className="btn btn-primary" to={`/owners/modify/${id}`}>
+        Edit Owner
+      </Link>
+      <Link className="btn btn-primary" to={''}>Add New Pet</Link>
 
       <br />
       <br />

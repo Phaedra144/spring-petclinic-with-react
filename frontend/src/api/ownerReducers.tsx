@@ -41,8 +41,34 @@ export const ownersApi = createApi({
           return `/owners/${ownerId}`;
         },
       }),
+      changeOwner: builder.mutation<
+        Owner,
+        {
+          ownerId: string;
+          payload: {
+            firstName: string;
+            lastName: string;
+            city: string;
+            address: string;
+            telephone: string;
+          };
+        }
+      >({
+        query: ({ ownerId, payload }) => {
+          return {
+            url: `/owners/${ownerId}`,
+            body: { payload },
+            method: 'PATCH',
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useGetOwnersQuery, useCreateOwnerMutation, useGetOwnerQuery } = ownersApi;
+export const {
+  useGetOwnersQuery,
+  useCreateOwnerMutation,
+  useGetOwnerQuery,
+  useChangeOwnerMutation,
+} = ownersApi;

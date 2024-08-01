@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { OwnerDetails } from 'src/pages/OwnerDetails';
 import { NavigationBar } from './navbar/NavigationBar';
 import { Error } from './pages/Error';
 import { FindOwner } from './pages/FindOwner';
@@ -8,7 +9,6 @@ import { Home } from './pages/Home';
 import { OwnerForm } from './pages/OwnerForm';
 import { OwnerList } from './pages/OwnerList';
 import { Veterinarians } from './pages/Veterinarians';
-import { OwnerDetails } from 'src/pages/OwnerDetails';
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
               <Route index={true} element={<OwnerList />} />
               <Route index={false} path="find" element={<FindOwner />} />
               <Route index={false} path="new" element={<OwnerForm />} />
+              <Route index={false} path="modify/:id" element={<OwnerForm />} />
               <Route index={false} path=":id" element={<OwnerDetails />} />
             </>
           </Route>

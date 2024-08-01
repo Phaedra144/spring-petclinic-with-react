@@ -1,6 +1,12 @@
 import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useCreateOwnerMutation } from 'src/api/ownerReducers';
+import {
+  useChangeOwnerMutation,
+  useCreateOwnerMutation,
+  useGetOwnerQuery,
+} from 'src/api/ownerReducers';
 import { InputField } from 'src/components/InputField';
 import useRefreshPage from 'src/hooks/useRefreshPage';
 import { useTelephoneValidation } from 'src/hooks/useTelephoneValidation';
@@ -14,10 +20,18 @@ const defaultUserInfo = {
 };
 
 export const OwnerForm = () => {
-  const [userInfo, setUserInfo] = useState(defaultUserInfo);
+  const params = useParams();
+  const id = params['id'] ?? '';
+  const newOwner = Boolean(!id);
+
+  const { currentData: owner } = useGetOwnerQuery(id);
+
+  const [userInfo, setUserInfo] = useState(owner ?? defaultUserInfo);
   const { telephoneErrors, validatePhoneNumberLength } = useTelephoneValidation();
-  const newOwner = true;
+
   const [createOwner] = useCreateOwnerMutation();
+  const [changeOwner] = useChangeOwnerMutation();
+
   const refreshPage = useRefreshPage();
 
   const handleTelephoneChange = ({ target: { name, value } }: ChangeEvent<HTMLInputElement>) => {
@@ -36,14 +50,25 @@ export const OwnerForm = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    createOwner(userInfo)
-      .unwrap()
-      .then(() => refreshPage())
-      .catch(({ data }) =>
-        data.errors.forEach((item: string) => {
-          toast.error(item);
-        }),
-      );
+    if (id) {
+      changeOwner({ ownerId: id, payload: userInfo })
+        .unwrap()
+        .then(() => refreshPage())
+        .catch(({ data }) =>
+          data.errors.forEach((item: string) => {
+            toast.error(item);
+          }),
+        );
+    } else {
+      createOwner(userInfo)
+        .unwrap()
+        .then(() => refreshPage())
+        .catch(({ data }) =>
+          data.errors.forEach((item: string) => {
+            toast.error(item);
+          }),
+        );
+    }
   };
 
   return (
@@ -56,7 +81,7 @@ export const OwnerForm = () => {
             name="firstName"
             label="First Name"
             placeHolder="First name"
-            value={userInfo.firstName}
+            value={owner?.firstName}
             onChange={handleChange}
             required
             errors={[]}
@@ -67,7 +92,7 @@ export const OwnerForm = () => {
             name="lastName"
             label="Last Name"
             placeHolder="Last name"
-            value={userInfo.lastName}
+            value={owner?.lastName}
             onChange={handleChange}
             required
             errors={[]}
@@ -77,7 +102,7 @@ export const OwnerForm = () => {
             name="address"
             label="Address"
             placeHolder="Address"
-            value={userInfo.address}
+            value={owner?.address}
             onChange={handleChange}
             required
             errors={[]}
@@ -87,7 +112,7 @@ export const OwnerForm = () => {
             name="city"
             label="City"
             placeHolder="City"
-            value={userInfo.city}
+            value={owner?.city}
             onChange={handleChange}
             required
             errors={[]}
@@ -97,7 +122,7 @@ export const OwnerForm = () => {
             name="telephone"
             label="Telephone"
             placeHolder="Telephone"
-            value={userInfo.telephone}
+            value={owner?.telephone}
             onChange={handleTelephoneChange}
             required
             errors={telephoneErrors}
@@ -105,9 +130,9 @@ export const OwnerForm = () => {
         </div>
         <div className="form-group">
           <div className="col-sm-offset-2 col-sm-10">
-            <button className="btn btn-primary" type="submit">
+            <Button className="btn btn-primary" type="submit">
               {newOwner ? 'Add Owner' : 'Update Owner'}
-            </button>
+            </Button>
           </div>
         </div>
       </form>
