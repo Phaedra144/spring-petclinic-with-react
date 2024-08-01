@@ -1,6 +1,7 @@
 # PetClinic Java Spring Application with React
 
 This is an exercise project deepening my React knowledge combined with refreshing my Java Spring knowledge.
+<img width="1385" alt="Screenshot 2024-07-31 at 13 57 57" src="https://github.com/user-attachments/assets/817f5b64-4e32-4ab9-b575-6e3ed29c18e0">
 
 ## Installation
 
