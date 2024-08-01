@@ -32,8 +32,9 @@ node version v20.15.0
 Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
-### What to improve
+### Next steps
 
+- Testing rest controllers
 - Toggle navbar in responsive screens
 - Extend features with:
   - Pet creation/modification
@@ -41,3 +42,4 @@ to discuss what you would like to change.
 - Service layer between repository and controller
 - Remove thymeleaf and mvc controllers
 - Return with DTOs in rest controllers
+- Contanerisation and deployment
