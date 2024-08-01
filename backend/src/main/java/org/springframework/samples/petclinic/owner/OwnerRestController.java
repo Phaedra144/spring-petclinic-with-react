@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.samples.petclinic.dto.OwnerDto;
+import org.springframework.samples.petclinic.mapper.OwnerMapper;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +23,11 @@ public class OwnerRestController {
 
 	private final OwnerRepository owners;
 
-	public OwnerRestController(OwnerRepository clinicService) {
+	private final OwnerMapper mapper;
+
+	public OwnerRestController(OwnerRepository clinicService, OwnerMapper mapper) {
 		this.owners = clinicService;
+		this.mapper = mapper;
 	}
 
 	@GetMapping("/owners")
@@ -39,11 +45,19 @@ public class OwnerRestController {
 		return owners.findById(ownerId);
 	}
 
-	@SuppressWarnings("rawtypes")
 	@PostMapping("/owners/new")
 	public ResponseEntity processCreationForm(@Valid @RequestBody Owner owner) {
 		this.owners.save(owner);
 		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@PatchMapping("/owners/{ownerId}")
+	public ResponseEntity<Owner> updateOwner(@PathVariable int ownerId, @RequestBody OwnerDto ownerDto) {
+		Owner owner = owners.findById(ownerId);
+		mapper.updateOwnerFromDto(ownerDto, owner);
+		owners.save(owner);
+
+		return new ResponseEntity<>(owner, HttpStatus.OK);
 	}
 
 }
