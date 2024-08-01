@@ -4,13 +4,13 @@ This is an exercise project deepening my React knowledge combined with refreshin
 
 ## Installation
 
-[Backend good to knows and installation summary](https://github.com/Phaedra144/spring-petclinic-with-react/tree/main/backend#readme)
+[Backend readme](https://github.com/Phaedra144/spring-petclinic-with-react/tree/main/backend#readme)
 
-[Frontend good to knows and installation summary](https://github.com/Phaedra144/spring-petclinic-with-react/tree/main/frontend#readme)
+[Frontend readme](https://github.com/Phaedra144/spring-petclinic-with-react/tree/main/frontend#readme)
 
 ## Usage
 
-Backend
+**Backend**
 
 Useful links to set up java environment in vscode:
 - https://code.visualstudio.com/docs/java/java-tutorial
@@ -20,7 +20,7 @@ Sample server start with postgres:
 `docker-compose --profile postgres up`
 `./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres`
 
-Frontend
+**Frontend**
 
 node version v20.15.0
 
@@ -40,3 +40,4 @@ to discuss what you would like to change.
   - Visit creation
 - Service layer between repository and controller
 - Remove thymeleaf and mvc controllers
+- Return with DTOs in rest controllers
