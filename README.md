@@ -42,4 +42,5 @@ to discuss what you would like to change.
 - Service layer between repository and controller
 - Remove thymeleaf and mvc controllers
 - Return with DTOs in rest controllers
+- Login and authentication
 - Contanerisation and deployment
