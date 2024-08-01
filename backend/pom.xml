@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.samples</groupId>
   <artifactId>spring-petclinic-with-react</artifactId>
@@ -139,6 +138,19 @@
       <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>1.6.0.Beta1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.34</version>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -163,6 +175,31 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>1.4.2.Final</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.22</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <version>0.2.0</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>io.spring.javaformat</groupId>
@@ -202,8 +239,7 @@
               <sourceDirectories>${basedir}</sourceDirectories>
               <includes>**/*</includes>
               <excludes>**/.git/**/*,**/.idea/**/*,**/target/**/,**/.flattened-pom.xml,**/*.class</excludes>
-              <propertyExpansion>
-                config_loc=${basedir}/src/checkstyle/
+              <propertyExpansion> config_loc=${basedir}/src/checkstyle/
               </propertyExpansion>
             </configuration>
             <goals>
@@ -221,7 +257,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <executions>
           <execution>
-            <!-- Spring Boot Actuator displays build-related information 
+            <!-- Spring Boot Actuator displays build-related information
               if a META-INF/build-info.properties file is present -->
             <goals>
               <goal>build-info</goal>
@@ -385,7 +421,7 @@
       <build>
         <pluginManagement>
           <plugins>
-            <!-- This plugin's configuration is used to store Eclipse m2e settings 
+            <!-- This plugin's configuration is used to store Eclipse m2e settings
               only. It has no influence on the Maven build itself. -->
             <plugin>
               <groupId>org.eclipse.m2e</groupId>
