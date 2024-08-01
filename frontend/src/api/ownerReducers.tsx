@@ -57,7 +57,7 @@ export const ownersApi = createApi({
         query: ({ ownerId, payload }) => {
           return {
             url: `/owners/${ownerId}`,
-            body: { payload },
+            body: payload,
             method: 'PATCH',
           };
         },

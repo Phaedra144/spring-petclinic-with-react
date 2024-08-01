@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -27,6 +27,7 @@ export const OwnerForm = () => {
   const { currentData: owner } = useGetOwnerQuery(id);
 
   const [userInfo, setUserInfo] = useState(owner ?? defaultUserInfo);
+
   const { telephoneErrors, validatePhoneNumberLength } = useTelephoneValidation();
 
   const [createOwner] = useCreateOwnerMutation();
@@ -53,7 +54,7 @@ export const OwnerForm = () => {
     if (id) {
       changeOwner({ ownerId: id, payload: userInfo })
         .unwrap()
-        .then(() => refreshPage())
+        .then(() => toast.success('Owner was updated successfully'))
         .catch(({ data }) =>
           data.errors.forEach((item: string) => {
             toast.error(item);
@@ -62,7 +63,7 @@ export const OwnerForm = () => {
     } else {
       createOwner(userInfo)
         .unwrap()
-        .then(() => refreshPage())
+        .then(() => toast.success('Owner was updated successfully'))
         .catch(({ data }) =>
           data.errors.forEach((item: string) => {
             toast.error(item);
@@ -70,6 +71,19 @@ export const OwnerForm = () => {
         );
     }
   };
+
+  useEffect(() => {
+    if (!owner) {
+      return;
+    }
+    setUserInfo({
+      firstName: owner.firstName,
+      lastName: owner.lastName,
+      city: owner.city,
+      address: owner.address,
+      telephone: owner.telephone,
+    });
+  }, [owner]);
 
   return (
     <>
@@ -81,7 +95,7 @@ export const OwnerForm = () => {
             name="firstName"
             label="First Name"
             placeHolder="First name"
-            value={owner?.firstName}
+            value={userInfo.firstName}
             onChange={handleChange}
             required
             errors={[]}
@@ -92,7 +106,7 @@ export const OwnerForm = () => {
             name="lastName"
             label="Last Name"
             placeHolder="Last name"
-            value={owner?.lastName}
+            value={userInfo.lastName}
             onChange={handleChange}
             required
             errors={[]}
@@ -102,7 +116,7 @@ export const OwnerForm = () => {
             name="address"
             label="Address"
             placeHolder="Address"
-            value={owner?.address}
+            value={userInfo.address}
             onChange={handleChange}
             required
             errors={[]}
@@ -112,7 +126,7 @@ export const OwnerForm = () => {
             name="city"
             label="City"
             placeHolder="City"
-            value={owner?.city}
+            value={userInfo.city}
             onChange={handleChange}
             required
             errors={[]}
@@ -122,7 +136,7 @@ export const OwnerForm = () => {
             name="telephone"
             label="Telephone"
             placeHolder="Telephone"
-            value={owner?.telephone}
+            value={userInfo.telephone}
             onChange={handleTelephoneChange}
             required
             errors={telephoneErrors}
