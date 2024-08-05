@@ -24,7 +24,7 @@ Sample server start with postgres:
 
 node version v20.15.0
 
-`nm run dev`
+`npm run dev`
 
 
 ## Contributing
