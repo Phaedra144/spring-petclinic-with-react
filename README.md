@@ -21,12 +21,25 @@ Sample server start with postgres:
 `docker-compose --profile postgres up`
 `./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres`
 
+### Building and running your application in container
+
+When you're ready, start your application by running:
+`docker compose up --build`.
+
+Your application will be available at http://localhost:8081.
+
 **Frontend**
 
 node version v20.15.0
 
 `npm run dev`
 
+### Building and running your application in container
+
+When you're ready, start your application by running:
+`docker compose up --build`.
+
+Your application will be available at http://localhost:5173.
 
 ## Contributing
 

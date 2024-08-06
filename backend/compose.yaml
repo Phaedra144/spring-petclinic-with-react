@@ -1,0 +1,28 @@
+
+services:
+  spring-boot:
+    build:
+      context: .
+    ports:
+      - 8081:8081
+    networks:
+      - petclinic-network
+
+  postgres:
+    image: postgres:16.3
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_USER=petclinic
+      - POSTGRES_DB=petclinic
+    volumes:
+      - "./conf.d:/etc/postgresql/conf.d:ro"
+    profiles:
+      - postgres
+    networks:
+      - petclinic-network
+      
+networks:
+  petclinic-network:
+    external: true
