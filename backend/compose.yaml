@@ -1,12 +1,4 @@
-
 services:
-  spring-boot:
-    build:
-      context: .
-    ports:
-      - 8081:8081
-    networks:
-      - petclinic-network
 
   postgres:
     image: postgres:16.3
@@ -18,11 +10,24 @@ services:
       - POSTGRES_DB=petclinic
     volumes:
       - "./conf.d:/etc/postgresql/conf.d:ro"
-    profiles:
-      - postgres
     networks:
       - petclinic-network
-      
+
+  petclinic-spring-boot:
+    build:
+      context: .
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/petclinic
+      - SPRING_DATASOURCE_USERNAME=petclinic
+      - SPRING_DATASOURCE_PASSWORD=petclinic
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - petclinic-network
+    depends_on:
+      - postgres
+
 networks:
   petclinic-network:
     external: true
